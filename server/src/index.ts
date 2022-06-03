@@ -1,1 +1,3 @@
-console.log("Hello World");
+import 'reflect-metadata';
+
+console.log('Hello World');
