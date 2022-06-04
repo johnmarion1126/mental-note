@@ -1,2 +1,2 @@
-# twitter-clone
-A twitter clone made with next.js.
+# Notes 
+A note taking app made with next.js.
