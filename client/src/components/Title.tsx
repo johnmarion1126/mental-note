@@ -1,12 +1,10 @@
-import { Box } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 import React from 'react';
 
 const Title: React.FC = () => (
-  <Box>
-    <h1>
-      Mental Note
-    </h1>
-  </Box>
+  <Heading fontSize="5xl" color="first" fontWeight="bold">
+    Mental Note
+  </Heading>
 );
 
 export default Title;
