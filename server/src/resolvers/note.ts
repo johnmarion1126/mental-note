@@ -46,6 +46,12 @@ class NoteResolver {
     }
     return true;
   }
+
+  @Mutation(() => Boolean)
+  async deletePost(@Arg('id') id: number): Promise<boolean> {
+    await Note.delete(id);
+    return true;
+  }
 }
 
 export default NoteResolver;
