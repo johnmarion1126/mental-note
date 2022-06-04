@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import express from 'express';
+import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 
@@ -11,6 +12,13 @@ import NoteResolver from './resolvers/note';
 const main = async () => {
   await dataSource.initialize();
   const app = express();
+
+  app.use(
+    cors({
+      origin: ['http://localhost:3000', 'https://studio.apollographql.com'],
+      credentials: true,
+    }),
+  );
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({

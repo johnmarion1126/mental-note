@@ -1,13 +1,13 @@
 import { Field, Int, ObjectType } from 'type-graphql';
 import {
-  Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, BaseEntity,
+  Entity, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @ObjectType()
 @Entity()
 class Note extends BaseEntity {
   @Field(() => Int)
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
     id: number;
 
   @Field(() => String)

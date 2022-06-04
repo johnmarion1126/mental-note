@@ -18,7 +18,7 @@ class NoteResolver {
     return Note.find();
   }
 
-  @Query(() => postMessage, { nullable: true })
+  @Query(() => Note, { nullable: true })
   post(@Arg('id', () => Int) id: number): Promise<Note | null> {
     return Note.findOne({ where: { id } });
   }
