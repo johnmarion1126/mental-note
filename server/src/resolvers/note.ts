@@ -31,6 +31,21 @@ class NoteResolver {
       ...input,
     }).save();
   }
+
+  @Mutation(() => Boolean)
+  async updatePost(
+    @Arg('id', () => Int) id: number,
+    @Arg('text', () => String, { nullable: true }) text: string,
+  ) : Promise<boolean> {
+    const note = await Note.findOne({ where: { id } });
+    if (!note) {
+      return false;
+    }
+    if (typeof text !== 'undefined') {
+      await Note.update({ id }, { text });
+    }
+    return true;
+  }
 }
 
 export default NoteResolver;
