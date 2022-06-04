@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "watch": "tsc -w",
-    "dev": "nodemon dist/index.js"
+    "dev": "nodemon dist/index.js",
+    "migrate": "npx typeorm migration:run -d ./dist/dataSource.js"
   },
   "keywords": [],
   "author": "",
