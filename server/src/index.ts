@@ -6,6 +6,7 @@ import { buildSchema } from 'type-graphql';
 import dataSource from './dataSource';
 import { PORT } from './utils/constants';
 import HelloResolver from './resolvers/hello';
+import NoteResolver from './resolvers/note';
 
 const main = async () => {
   await dataSource.initialize();
@@ -13,7 +14,10 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver],
+      resolvers: [
+        HelloResolver,
+        NoteResolver,
+      ],
     }),
   });
 
