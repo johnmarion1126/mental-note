@@ -20,6 +20,10 @@ class Note extends BaseEntity {
 
   @Field(() => String)
   @Column()
+    name: String;
+
+  @Field(() => String)
+  @Column()
     text: String;
 }
 
