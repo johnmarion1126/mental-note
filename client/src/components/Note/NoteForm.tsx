@@ -10,10 +10,22 @@ const NoteForm: React.FC<NoteFormProps> = ({
 }) => (
   <>
     <Textarea
-      borderColor="gray.300"
+      borderColor="white"
       h="200px"
       focusBorderColor="gray.300"
       mb={3}
+      css={{
+        '&::-webkit-scrollbar': {
+          width: '8px',
+        },
+        '&::-webkit-scrollbar-track': {
+          width: '10px',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: 'lightgray',
+          borderRadius: '24px',
+        },
+      }}
     />
     <Text color="gray.600" textAlign="right">From,</Text>
     <Text color="gray.600" textAlign="right">{name}</Text>

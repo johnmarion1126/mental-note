@@ -17,6 +17,18 @@ const Note: React.FC = () => {
         style={{
           overflowY: 'scroll',
         }}
+        css={{
+          '&::-webkit-scrollbar': {
+            width: '8px',
+          },
+          '&::-webkit-scrollbar-track': {
+            width: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: 'lightgray',
+            borderRadius: '24px',
+          },
+        }}
       >
         {data?.note?.text}
       </Text>
