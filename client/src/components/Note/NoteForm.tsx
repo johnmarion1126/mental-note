@@ -1,7 +1,13 @@
 import { Textarea, Text } from '@chakra-ui/react';
 import React from 'react';
 
-const NoteForm: React.FC = () => (
+interface NoteFormProps {
+  name: string
+}
+
+const NoteForm: React.FC<NoteFormProps> = ({
+  name,
+}) => (
   <>
     <Textarea
       borderColor="gray.300"
@@ -10,7 +16,7 @@ const NoteForm: React.FC = () => (
       mb={3}
     />
     <Text color="gray.600" textAlign="right">From,</Text>
-    <Text color="gray.600" textAlign="right">John</Text>
+    <Text color="gray.600" textAlign="right">{name}</Text>
   </>
 );
 
