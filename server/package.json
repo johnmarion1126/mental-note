@@ -26,6 +26,8 @@
     "typescript": "^4.7.2"
   },
   "dependencies": {
+    "@chakra-ui/system": "^2.1.1",
+    "@chakra-ui/theme-tools": "^2.0.1",
     "apollo-server-express": "^3.8.2",
     "class-validator": "^0.13.2",
     "cors": "^2.8.5",
