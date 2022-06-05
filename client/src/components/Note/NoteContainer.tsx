@@ -27,7 +27,7 @@ const NoteContainer: React.FC<NoteContainerProps> = ({
       py={6}
     >
       <Text color="gray.600" mb={3}>Hello World!</Text>
-      {isWriting ? <Note /> : <NoteForm name={name} />}
+      {!isWriting ? <Note /> : <NoteForm name={name} />}
     </Box>
   );
 };
