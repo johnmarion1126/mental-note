@@ -66,7 +66,7 @@ const Note: React.FC<NoteProps> = ({
             onClick={() => {
               toggleBtns();
               onToggle();
-              setTimeout(() => setIsWriting(true), 500);
+              setTimeout(() => setIsWriting(true), 1000);
             }}
           />
         </Flex>
