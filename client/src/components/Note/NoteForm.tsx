@@ -39,7 +39,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
     toggleBtns();
     const result = await createNote({ variables: { input: { name, text } } });
     setLimit((result.data?.createNote.id) as number);
-    setTimeout(() => setIsWriting(false), 5000);
+    setTimeout(() => setIsWriting(false), 1000);
   };
 
   return (

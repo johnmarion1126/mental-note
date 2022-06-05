@@ -16,7 +16,7 @@ const Note: React.FC<NoteProps> = ({
   setIsWriting,
   onToggle,
 }) => {
-  const { data } = useNoteQuery({ variables: { noteId: Math.floor(Math.random() * limit) + 1 } });
+  const { data } = useNoteQuery({ variables: { noteId: Math.floor(Math.random() * limit) } });
 
   const { isOpen, onToggle: toggleBtns } = useDisclosure();
 
