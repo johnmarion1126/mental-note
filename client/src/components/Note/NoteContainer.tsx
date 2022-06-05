@@ -12,7 +12,7 @@ const NoteContainer: React.FC<NoteContainerProps> = ({
   name,
 }) => {
   // eslint-disable-next-line no-unused-vars
-  const [isWriting, setIsWriting] = useState<boolean>(false);
+  const [isWriting, setIsWriting] = useState<boolean>(true);
 
   return (
     <Flex flexDir="column">
