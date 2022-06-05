@@ -1,12 +1,17 @@
-import { Textarea, Text } from '@chakra-ui/react';
-import React from 'react';
+import { ChevronUpIcon, RepeatIcon } from '@chakra-ui/icons';
+import {
+  Textarea, Text, Flex, IconButton,
+} from '@chakra-ui/react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 interface NoteFormProps {
   name: string
+  setIsWriting: Dispatch<SetStateAction<boolean>>
 }
 
 const NoteForm: React.FC<NoteFormProps> = ({
   name,
+  setIsWriting,
 }) => (
   <>
     <Textarea
@@ -29,6 +34,25 @@ const NoteForm: React.FC<NoteFormProps> = ({
     />
     <Text color="gray.600" textAlign="right">From,</Text>
     <Text color="gray.600" textAlign="right">{name}</Text>
+    <Flex gap={4} position="absolute" bottom={-90} right={141}>
+      <IconButton
+        icon={<RepeatIcon w="5" h="5" />}
+        aria-label="reset note"
+        colorScheme="second"
+        borderRadius="full"
+        bg="gray.500"
+      />
+      <IconButton
+        icon={<ChevronUpIcon w="10" h="10" />}
+        aria-label="submit note"
+        colorScheme="second"
+        borderRadius="full"
+        bg="second"
+        onClick={() => {
+          setIsWriting(false);
+        }}
+      />
+    </Flex>
   </>
 );
 

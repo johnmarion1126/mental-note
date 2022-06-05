@@ -3,7 +3,6 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 
 import Note from './Note';
 import NoteForm from './NoteForm';
-import OptionContainer from './Options/OptionContainer';
 
 interface NoteContainerProps {
   name: string
@@ -13,7 +12,7 @@ const NoteContainer: React.FC<NoteContainerProps> = ({
   name,
 }) => {
   // eslint-disable-next-line no-unused-vars
-  const [isWriting, setIsWriting] = useState<boolean>(true);
+  const [isWriting, setIsWriting] = useState<boolean>(false);
 
   return (
     <Flex flexDir="column">
@@ -29,9 +28,10 @@ const NoteContainer: React.FC<NoteContainerProps> = ({
         py={6}
       >
         <Text color="gray.600" mb={3}>Hello World!</Text>
-        {!isWriting ? <Note /> : <NoteForm name={name} />}
+        {!isWriting
+          ? <Note setIsWriting={setIsWriting} />
+          : <NoteForm name={name} setIsWriting={setIsWriting} />}
       </Box>
-      <OptionContainer />
     </Flex>
   );
 };

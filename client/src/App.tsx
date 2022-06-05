@@ -21,7 +21,7 @@ const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
       <ChakraProvider resetCSS theme={theme}>
-        <Center h="calc(100vh)" bg="fifth" m="auto">
+        <Center h="calc(100vh)" bg="fifth" m="auto" pb={20}>
           {
           !isSignedIn ? (
             <Flex flexDir="column">
