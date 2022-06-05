@@ -26,12 +26,8 @@ const NoteContainer: React.FC<NoteContainerProps> = ({
       px={8}
       py={6}
     >
-      <Text color="gray.600" mb={3}>
-        Hello World!
-        {' '}
-        {name}
-      </Text>
-      {isWriting ? <Note /> : <NoteForm />}
+      <Text color="gray.600" mb={3}>Hello World!</Text>
+      {isWriting ? <Note /> : <NoteForm name={name} />}
     </Box>
   );
 };
