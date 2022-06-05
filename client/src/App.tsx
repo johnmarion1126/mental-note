@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Center, ChakraProvider, Flex } from '@chakra-ui/react';
+import {
+  Center, ChakraProvider, Flex,
+} from '@chakra-ui/react';
 import '@fontsource/open-sans';
 import '@fontsource/raleway';
 

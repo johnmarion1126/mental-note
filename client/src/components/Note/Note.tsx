@@ -1,20 +1,29 @@
 import { EmailIcon } from '@chakra-ui/icons';
 import {
-  Box, Flex, IconButton, Text,
+  Box, Fade, Flex, IconButton, Text, useDisclosure,
 } from '@chakra-ui/react';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useNoteQuery } from '../../generated/graphql';
 
 interface NoteProps {
   limit: number
   setIsWriting: Dispatch<SetStateAction<boolean>>
+  onToggle: () => void
 }
 
 const Note: React.FC<NoteProps> = ({
   limit,
   setIsWriting,
+  onToggle,
 }) => {
   const { data } = useNoteQuery({ variables: { noteId: Math.floor(Math.random() * limit) + 1 } });
+
+  const { isOpen, onToggle: toggleBtns } = useDisclosure();
+
+  useEffect(() => {
+    onToggle();
+    toggleBtns();
+  }, []);
 
   return (
     <>
@@ -46,18 +55,22 @@ const Note: React.FC<NoteProps> = ({
         <Text color="gray.600" textAlign="right">From,</Text>
         <Text color="gray.600" textAlign="right">{data?.note?.name}</Text>
       </Box>
-      <Flex position="absolute" bottom={-90} right={168}>
-        <IconButton
-          icon={<EmailIcon w="5" h="5" />}
-          aria-label="submit note"
-          colorScheme="second"
-          borderRadius="full"
-          bg="second"
-          onClick={() => {
-            setIsWriting(true);
-          }}
-        />
-      </Flex>
+      <Fade in={isOpen}>
+        <Flex position="absolute" bottom={-90} right={168}>
+          <IconButton
+            icon={<EmailIcon w="5" h="5" />}
+            aria-label="create note"
+            colorScheme="second"
+            borderRadius="full"
+            bg="second"
+            onClick={() => {
+              toggleBtns();
+              onToggle();
+              setTimeout(() => setIsWriting(true), 500);
+            }}
+          />
+        </Flex>
+      </Fade>
     </>
   );
 };
