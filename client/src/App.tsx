@@ -9,8 +9,8 @@ import NameInput from './components/NameInput';
 import NoteContainer from './components/Note/NoteContainer';
 
 const App: React.FC = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [isSignedIn, setIsSignedIn] = useState(true);
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const [name, setName] = useState<string>('');
 
   return (
     <ChakraProvider resetCSS theme={theme}>
@@ -19,10 +19,13 @@ const App: React.FC = () => {
           !isSignedIn ? (
             <Flex flexDir="column">
               <Title />
-              <NameInput />
+              <NameInput
+                setIsSignedIn={setIsSignedIn}
+                setName={setName}
+              />
             </Flex>
           ) : (
-            <NoteContainer />
+            <NoteContainer name={name} />
           )
         }
       </Center>

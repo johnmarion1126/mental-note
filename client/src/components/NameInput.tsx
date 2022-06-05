@@ -1,11 +1,22 @@
-import React, { KeyboardEvent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch, KeyboardEvent, SetStateAction, useState,
+} from 'react';
 import {
   Box, FormControl, Input,
 } from '@chakra-ui/react';
 
-const NameInput: React.FC = () => {
-  // eslint-disable-next-line no-unused-vars
+interface NameInputProps {
+  setIsSignedIn: Dispatch<SetStateAction<boolean>>;
+  setName: Dispatch<SetStateAction<string>>;
+}
+
+const NameInput: React.FC<NameInputProps> = ({
+  setIsSignedIn,
+  setName,
+}) => {
   const [error, setError] = useState<string | null>(null);
+  const [input, setInput] = useState<string>('');
 
   const handleSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
@@ -13,11 +24,15 @@ const NameInput: React.FC = () => {
       if (target.value === '') {
         setError('Please enter a name');
       } else {
+        setName(target.value);
         setError('');
+        setIsSignedIn(true);
       }
-    } else {
-      console.log(target.value);
     }
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInput(event.target.value);
   };
 
   return (
@@ -32,6 +47,8 @@ const NameInput: React.FC = () => {
         variant="flushed"
         px={4}
         onKeyDown={handleSubmit}
+        onChange={handleChange}
+        value={input}
       />
       { error
         && (

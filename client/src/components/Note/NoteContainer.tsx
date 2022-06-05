@@ -4,7 +4,13 @@ import { Box, Text } from '@chakra-ui/react';
 import Note from './Note';
 import NoteForm from './NoteForm';
 
-const NoteContainer: React.FC = () => {
+interface NoteContainerProps {
+  name: string
+}
+
+const NoteContainer: React.FC<NoteContainerProps> = ({
+  name,
+}) => {
   // eslint-disable-next-line no-unused-vars
   const [isWriting, setIsWriting] = useState(false);
 
@@ -20,7 +26,11 @@ const NoteContainer: React.FC = () => {
       px={8}
       py={6}
     >
-      <Text color="gray.600" mb={3}>Hello World!</Text>
+      <Text color="gray.600" mb={3}>
+        Hello World!
+        {' '}
+        {name}
+      </Text>
       {isWriting ? <Note /> : <NoteForm />}
     </Box>
   );
