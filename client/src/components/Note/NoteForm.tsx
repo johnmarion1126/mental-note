@@ -10,7 +10,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
 }) => (
   <>
     <Textarea
-      borderColor="white"
+      borderColor="gray.300"
       h="200px"
       focusBorderColor="gray.300"
       mb={3}
