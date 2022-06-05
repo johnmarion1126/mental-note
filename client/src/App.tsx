@@ -6,10 +6,11 @@ import '@fontsource/raleway';
 import theme from './theme';
 import Title from './components/Title';
 import NameInput from './components/NameInput';
+import NoteContainer from './components/Note/NoteContainer';
 
 const App: React.FC = () => {
   // eslint-disable-next-line no-unused-vars
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(true);
 
   return (
     <ChakraProvider resetCSS theme={theme}>
@@ -21,7 +22,7 @@ const App: React.FC = () => {
               <NameInput />
             </Flex>
           ) : (
-            <div>Signed In</div>
+            <NoteContainer />
           )
         }
       </Center>
