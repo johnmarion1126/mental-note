@@ -19,12 +19,12 @@ class NoteResolver {
   }
 
   @Query(() => Note, { nullable: true })
-  post(@Arg('id', () => Int) id: number): Promise<Note | null> {
+  note(@Arg('id', () => Int) id: number): Promise<Note | null> {
     return Note.findOne({ where: { id } });
   }
 
   @Mutation(() => Note)
-  async createPost(
+  async createNote(
     @Arg('input', () => NoteInput) input: NoteInput,
   ) : Promise<Note> {
     return Note.create({
@@ -33,7 +33,7 @@ class NoteResolver {
   }
 
   @Mutation(() => Boolean)
-  async updatePost(
+  async updateNote(
     @Arg('id', () => Int) id: number,
     @Arg('text', () => String, { nullable: true }) text: string,
   ) : Promise<boolean> {
@@ -48,7 +48,7 @@ class NoteResolver {
   }
 
   @Mutation(() => Boolean)
-  async deletePost(@Arg('id') id: number): Promise<boolean> {
+  async deleteNote(@Arg('id') id: number): Promise<boolean> {
     await Note.delete(id);
     return true;
   }
