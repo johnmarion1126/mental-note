@@ -11,8 +11,8 @@ interface NoteContainerProps {
 const NoteContainer: React.FC<NoteContainerProps> = ({
   name,
 }) => {
-  // eslint-disable-next-line no-unused-vars
   const [isWriting, setIsWriting] = useState<boolean>(true);
+  const [limit, setLimit] = useState<number>(2); // initial value in database
 
   return (
     <Flex flexDir="column">
@@ -29,8 +29,8 @@ const NoteContainer: React.FC<NoteContainerProps> = ({
       >
         <Text color="gray.600" mb={3}>Hello World!</Text>
         {!isWriting
-          ? <Note setIsWriting={setIsWriting} />
-          : <NoteForm name={name} setIsWriting={setIsWriting} />}
+          ? <Note limit={limit} setIsWriting={setIsWriting} />
+          : <NoteForm name={name} setLimit={setLimit} setIsWriting={setIsWriting} />}
       </Box>
     </Flex>
   );

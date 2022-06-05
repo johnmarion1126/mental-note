@@ -10,11 +10,13 @@ import { useCreateNoteMutation } from '../../generated/graphql';
 interface NoteFormProps {
   name: string
   setIsWriting: Dispatch<SetStateAction<boolean>>
+  setLimit: Dispatch<SetStateAction<number>>
 }
 
 const NoteForm: React.FC<NoteFormProps> = ({
   name,
   setIsWriting,
+  setLimit,
 }) => {
   const [createNote] = useCreateNoteMutation();
   const [text, setText] = useState<string>('');
@@ -24,7 +26,8 @@ const NoteForm: React.FC<NoteFormProps> = ({
   };
 
   const hanldeSumbit = async () => {
-    await createNote({ variables: { input: { name, text } } });
+    const result = await createNote({ variables: { input: { name, text } } });
+    setLimit((result.data?.createNote.id) as number);
     setIsWriting(false);
   };
 

@@ -69,7 +69,7 @@ export type CreateNoteMutationVariables = Exact<{
 }>;
 
 
-export type CreateNoteMutation = { __typename?: 'Mutation', createNote: { __typename?: 'Note', name: string } };
+export type CreateNoteMutation = { __typename?: 'Mutation', createNote: { __typename?: 'Note', id: number } };
 
 export type NoteQueryVariables = Exact<{
   noteId: Scalars['Int'];
@@ -82,7 +82,7 @@ export type NoteQuery = { __typename?: 'Query', note?: { __typename?: 'Note', na
 export const CreateNoteDocument = gql`
     mutation CreateNote($input: NoteInput!) {
   createNote(input: $input) {
-    name
+    id
   }
 }
     `;

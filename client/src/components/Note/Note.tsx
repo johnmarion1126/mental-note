@@ -6,13 +6,15 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { useNoteQuery } from '../../generated/graphql';
 
 interface NoteProps {
+  limit: number
   setIsWriting: Dispatch<SetStateAction<boolean>>
 }
 
 const Note: React.FC<NoteProps> = ({
+  limit,
   setIsWriting,
 }) => {
-  const { data } = useNoteQuery({ variables: { noteId: 2 } });
+  const { data } = useNoteQuery({ variables: { noteId: Math.floor(Math.random() * limit) + 1 } });
 
   return (
     <>
