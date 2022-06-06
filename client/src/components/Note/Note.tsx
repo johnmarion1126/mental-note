@@ -20,6 +20,16 @@ const Note: React.FC<NoteProps> = ({
 
   const { isOpen, onToggle: toggleBtns } = useDisclosure();
 
+  const handleAnimations = () => {
+    onToggle();
+    toggleBtns();
+  };
+
+  const handleClick = () => {
+    handleAnimations();
+    setTimeout(() => setIsWriting(true), 1000);
+  };
+
   useEffect(() => {
     onToggle();
     toggleBtns();
@@ -63,11 +73,7 @@ const Note: React.FC<NoteProps> = ({
             colorScheme="second"
             borderRadius="full"
             bg="second"
-            onClick={() => {
-              toggleBtns();
-              onToggle();
-              setTimeout(() => setIsWriting(true), 1000);
-            }}
+            onClick={handleClick}
           />
         </Flex>
       </Fade>

@@ -34,9 +34,13 @@ const NoteForm: React.FC<NoteFormProps> = ({
     setText(event.target.value);
   };
 
-  const hanldeSumbit = async () => {
+  const handleAnimations = () => {
     onToggle();
     toggleBtns();
+  };
+
+  const hanldeSumbit = async () => {
+    handleAnimations();
     const result = await createNote({ variables: { input: { name, text } } });
     setLimit((result.data?.createNote.id) as number);
     setTimeout(() => setIsWriting(false), 1000);
