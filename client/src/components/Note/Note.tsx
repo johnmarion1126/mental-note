@@ -1,81 +1,82 @@
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { EmailIcon } from '@chakra-ui/icons';
 import {
-  Box, Fade, Flex, IconButton, Text, useDisclosure,
+  Fade, IconButton, Slide, Text, useDisclosure,
 } from '@chakra-ui/react';
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+
 import { useNoteQuery } from '../../generated/graphql';
+import NoteContainer from './NoteContainer';
 
 interface NoteProps {
-  limit: number
   setIsWriting: Dispatch<SetStateAction<boolean>>
-  onToggle: () => void
+  limit: number
 }
 
 const Note: React.FC<NoteProps> = ({
-  limit,
   setIsWriting,
-  onToggle,
+  limit,
 }) => {
   const { data } = useNoteQuery({ variables: { noteId: Math.floor(Math.random() * limit) } });
 
-  const { isOpen, onToggle: toggleBtns } = useDisclosure();
+  const { isOpen: isBtnOpen, onToggle: onBtnToggle } = useDisclosure();
+  const { isOpen: isFormOpen, onToggle: onFormToggle } = useDisclosure();
 
-  const handleAnimations = () => {
-    onToggle();
-    toggleBtns();
+  const toggleAnimations = () => {
+    onBtnToggle();
+    onFormToggle();
   };
 
   const handleClick = () => {
-    handleAnimations();
+    toggleAnimations();
     setTimeout(() => setIsWriting((prevVal) => !prevVal), 1000);
   };
 
   useEffect(() => {
-    onToggle();
-    toggleBtns();
+    toggleAnimations();
   }, []);
 
   return (
     <>
-      <Box>
-        <Text
-          mb={3}
-          textAlign="justify"
-          h="200px"
-          color="gray.600"
-          px={3}
-          style={{
-            overflowY: 'scroll',
-          }}
-          css={{
-            '&::-webkit-scrollbar': {
-              width: '8px',
-            },
-            '&::-webkit-scrollbar-track': {
-              width: '10px',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: 'lightgray',
-              borderRadius: '24px',
-            },
-          }}
-        >
-          {data?.note?.text}
-        </Text>
-        <Text color="gray.600" textAlign="right">From,</Text>
-        <Text color="gray.600" textAlign="right">{data?.note?.name}</Text>
-      </Box>
-      <Fade in={isOpen}>
-        <Flex position="absolute" bottom={-90} right={168}>
-          <IconButton
-            icon={<EmailIcon w="5" h="5" />}
-            aria-label="create note"
-            colorScheme="second"
-            borderRadius="full"
-            bg="second"
-            onClick={handleClick}
-          />
-        </Flex>
+      <Slide direction="top" in={isFormOpen}>
+        <NoteContainer>
+          <Text
+            mb={3}
+            textAlign="justify"
+            h="200px"
+            color="gray.600"
+            px={3}
+            style={{
+              overflowY: 'scroll',
+            }}
+            css={{
+              '&::-webkit-scrollbar': {
+                width: '8px',
+              },
+              '&::-webkit-scrollbar-track': {
+                width: '10px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: 'lightgray',
+                borderRadius: '24px',
+              },
+            }}
+          >
+            {data?.note?.text}
+          </Text>
+          <Text color="gray.600" textAlign="right">From,</Text>
+          <Text color="gray.600" textAlign="right">{data?.note?.name}</Text>
+        </NoteContainer>
+      </Slide>
+      <Fade in={isBtnOpen}>
+        <IconButton
+          icon={<EmailIcon w="5" h="5" />}
+          aria-label="create note"
+          colorScheme="second"
+          borderRadius="full"
+          bg="second"
+          mt={500}
+          onClick={handleClick}
+        />
       </Fade>
     </>
   );

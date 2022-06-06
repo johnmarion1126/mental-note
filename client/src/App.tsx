@@ -4,12 +4,13 @@ import {
 } from '@chakra-ui/react';
 import '@fontsource/open-sans';
 import '@fontsource/raleway';
-
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
 import theme from './theme';
 import Title from './components/Title';
 import NameInput from './components/NameInput';
-import NoteContainer from './components/Note/NoteContainer';
+import NoteForm from './components/Note/NoteForm';
+import Note from './components/Note/Note';
 
 const client = new ApolloClient({
   uri: 'http://localhost:8000/graphql',
@@ -18,6 +19,8 @@ const client = new ApolloClient({
 
 const App: React.FC = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const [isWriting, setIsWriting] = useState<boolean>(true);
+  const [limit, setLimit] = useState<number>(0);
   const [name, setName] = useState<string>('');
 
   return (
@@ -34,7 +37,18 @@ const App: React.FC = () => {
               />
             </Flex>
           ) : (
-            <NoteContainer name={name} />
+            isWriting ? (
+              <NoteForm
+                name={name}
+                setLimit={setLimit}
+                setIsWriting={setIsWriting}
+              />
+            ) : (
+              <Note
+                limit={limit}
+                setIsWriting={setIsWriting}
+              />
+            )
           )
         }
         </Center>

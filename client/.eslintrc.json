@@ -37,7 +37,8 @@
     ],
       "react/function-component-definition": 0,
       "linebreak-style": 0,
-      "react/prop-types": "off"
+      "react/prop-types": "off",
+      "no-nested-ternary": 0
   },
   "settings": {
     "import/resolver": {
