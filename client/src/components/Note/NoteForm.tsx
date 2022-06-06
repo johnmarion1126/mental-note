@@ -3,71 +3,79 @@ import React, {
 } from 'react';
 import { ChevronUpIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
-  Textarea, Text, Flex, IconButton, useDisclosure, Fade,
+  Textarea, Text, Flex, IconButton, useDisclosure, Fade, Slide,
 } from '@chakra-ui/react';
+
 import { useCreateNoteMutation } from '../../generated/graphql';
+import NoteContainer from './NoteContainer';
 
 interface NoteFormProps {
-  name: string
   setIsWriting: Dispatch<SetStateAction<boolean>>
   setLimit: Dispatch<SetStateAction<number>>
-  onToggle: () => void
+  name: string
 }
 
 const NoteForm: React.FC<NoteFormProps> = ({
-  name,
   setIsWriting,
   setLimit,
-  onToggle,
+  name,
 }) => {
   const [createNote] = useCreateNoteMutation();
   const [text, setText] = useState<string>('');
 
-  const { isOpen, onToggle: toggleBtns } = useDisclosure();
+  const { isOpen: isBtnOpen, onToggle: onBtnToggle } = useDisclosure();
+  const { isOpen: isNoteOpen, onToggle: onNoteToggle } = useDisclosure();
 
-  useEffect(() => {
-    onToggle();
-    toggleBtns();
-  }, []);
+  const toggleAnimations = () => {
+    onBtnToggle();
+    onNoteToggle();
+  };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
   const hanldeSumbit = async () => {
-    onToggle();
-    toggleBtns();
+    toggleAnimations();
     const result = await createNote({ variables: { input: { name, text } } });
     setLimit((result.data?.createNote.id) as number);
     setTimeout(() => setIsWriting(false), 1000);
   };
 
+  useEffect(() => {
+    toggleAnimations();
+  }, []);
+
   return (
     <>
-      <Textarea
-        borderColor="gray.300"
-        h="200px"
-        focusBorderColor="gray.300"
-        mb={3}
-        css={{
-          '&::-webkit-scrollbar': {
-            width: '8px',
-          },
-          '&::-webkit-scrollbar-track': {
-            width: '10px',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            background: 'lightgray',
-            borderRadius: '24px',
-          },
-        }}
-        value={text}
-        onChange={handleChange}
-      />
-      <Text color="gray.600" textAlign="right">From,</Text>
-      <Text color="gray.600" textAlign="right">{name}</Text>
-      <Fade in={isOpen}>
-        <Flex gap={4} position="absolute" bottom={-90} right={141}>
+      <Slide direction="top" in={isNoteOpen}>
+        <NoteContainer>
+          <Textarea
+            borderColor="gray.300"
+            h="200px"
+            focusBorderColor="gray.300"
+            mb={3}
+            css={{
+              '&::-webkit-scrollbar': {
+                width: '8px',
+              },
+              '&::-webkit-scrollbar-track': {
+                width: '10px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: 'lightgray',
+                borderRadius: '24px',
+              },
+            }}
+            value={text}
+            onChange={handleChange}
+          />
+          <Text color="gray.600" textAlign="right">From,</Text>
+          <Text color="gray.600" textAlign="right">{name}</Text>
+        </NoteContainer>
+      </Slide>
+      <Fade in={isBtnOpen}>
+        <Flex gap={4} mt={500}>
           <IconButton
             icon={<RepeatIcon w="5" h="5" />}
             aria-label="reset note"

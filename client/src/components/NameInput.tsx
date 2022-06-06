@@ -24,9 +24,9 @@ const NameInput: React.FC<NameInputProps> = ({
       if (target.value === '') {
         setError('Please enter a name');
       } else {
-        setName(target.value);
         setError('');
-        setIsSignedIn(true);
+        setName(target.value);
+        setIsSignedIn((prevVal) => !prevVal);
       }
     }
   };
