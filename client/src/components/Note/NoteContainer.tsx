@@ -14,7 +14,7 @@ const NoteContainer: React.FC<NoteContainerProps> = ({
   name,
 }) => {
   const [isWriting, setIsWriting] = useState<boolean>(true);
-  const [limit, setLimit] = useState<number>(-1); // initial value in database
+  const [limit, setLimit] = useState<number>(-1);
 
   const { isOpen, onToggle } = useDisclosure();
 

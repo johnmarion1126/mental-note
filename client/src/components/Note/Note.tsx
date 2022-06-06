@@ -27,7 +27,7 @@ const Note: React.FC<NoteProps> = ({
 
   const handleClick = () => {
     handleAnimations();
-    setTimeout(() => setIsWriting(true), 1000);
+    setTimeout(() => setIsWriting((prevVal) => !prevVal), 1000);
   };
 
   useEffect(() => {
