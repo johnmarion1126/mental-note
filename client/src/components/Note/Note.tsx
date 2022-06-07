@@ -7,7 +7,7 @@ import {
 import { useNoteQuery } from '../../generated/graphql';
 import NoteWrapper from './NoteWrapper';
 
-interface NoteProps {
+export interface NoteProps {
   setIsWriting: Dispatch<SetStateAction<boolean>>
   limit: number
 }
@@ -40,6 +40,7 @@ const Note: React.FC<NoteProps> = ({
       <Slide direction="top" in={isFormOpen}>
         <NoteWrapper>
           <Text
+            data-testid="note"
             mb={3}
             textAlign="justify"
             h="200px"
