@@ -9,7 +9,7 @@ import {
 import { useCreateNoteMutation } from '../../generated/graphql';
 import NoteWrapper from './NoteWrapper';
 
-interface NoteFormProps {
+export interface NoteFormProps {
   setIsWriting: Dispatch<SetStateAction<boolean>>
   setLimit: Dispatch<SetStateAction<number>>
   name: string
@@ -51,6 +51,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
       <Slide direction="top" in={isNoteOpen}>
         <NoteWrapper>
           <Textarea
+            data-testid="note-form"
             borderColor="gray.300"
             h="200px"
             focusBorderColor="gray.300"
