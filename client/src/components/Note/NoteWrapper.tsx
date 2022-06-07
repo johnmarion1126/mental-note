@@ -3,11 +3,11 @@ import {
   Box, Flex, Text,
 } from '@chakra-ui/react';
 
-interface NoteContainerProps {
+interface NoteWrapperProps {
   children: React.ReactNode
 }
 
-const NoteContainer: React.FC<NoteContainerProps> = ({
+const NoteWrapper: React.FC<NoteWrapperProps> = ({
   children,
 }) => (
   <Flex bg="fifth" justifyContent="center">
@@ -30,4 +30,4 @@ const NoteContainer: React.FC<NoteContainerProps> = ({
   </Flex>
 );
 
-export default NoteContainer;
+export default NoteWrapper;

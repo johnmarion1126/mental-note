@@ -6,12 +6,12 @@ import {
   Box, FormControl, Input,
 } from '@chakra-ui/react';
 
-interface NameInputProps {
+interface NameFormProps {
   setIsSignedIn: Dispatch<SetStateAction<boolean>>;
   setName: Dispatch<SetStateAction<string>>;
 }
 
-const NameInput: React.FC<NameInputProps> = ({
+const NameForm: React.FC<NameFormProps> = ({
   setIsSignedIn,
   setName,
 }) => {
@@ -65,4 +65,4 @@ const NameInput: React.FC<NameInputProps> = ({
   );
 };
 
-export default NameInput;
+export default NameForm;
