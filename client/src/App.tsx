@@ -8,7 +8,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 import theme from './theme';
 import Title from './components/Title';
-import NameInput from './components/NameInput';
+import NameForm from './components/NameForm';
 import NoteForm from './components/Note/NoteForm';
 import Note from './components/Note/Note';
 
@@ -31,7 +31,7 @@ const App: React.FC = () => {
           !isSignedIn ? (
             <Flex flexDir="column">
               <Title />
-              <NameInput
+              <NameForm
                 setIsSignedIn={setIsSignedIn}
                 setName={setName}
               />

@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 
 import { useCreateNoteMutation } from '../../generated/graphql';
-import NoteContainer from './NoteContainer';
+import NoteWrapper from './NoteWrapper';
 
 interface NoteFormProps {
   setIsWriting: Dispatch<SetStateAction<boolean>>
@@ -49,7 +49,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
   return (
     <>
       <Slide direction="top" in={isNoteOpen}>
-        <NoteContainer>
+        <NoteWrapper>
           <Textarea
             borderColor="gray.300"
             h="200px"
@@ -72,7 +72,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
           />
           <Text color="gray.600" textAlign="right">From,</Text>
           <Text color="gray.600" textAlign="right">{name}</Text>
-        </NoteContainer>
+        </NoteWrapper>
       </Slide>
       <Fade in={isBtnOpen}>
         <Flex gap={4} mt={500}>
