@@ -3,24 +3,22 @@
 import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 
-import { render } from '@testing-library/react';
-import Note, { GET_NOTE_QUERY, NoteProps } from '../components/Note/Note';
+import { render, waitFor } from '@testing-library/react';
+import Note, { NoteProps } from '../components/Note/Note';
+import { NoteDocument } from '../generated/graphql';
 
 const mocks: MockedResponse<Record<string, any>>[] = [{
   request: {
-    query: GET_NOTE_QUERY,
+    query: NoteDocument,
     variables: {
       id: 1,
     },
   },
-  result: () => {
-    console.log('HITTT');
-    return {
-      data: {
-        note: { name: 'John', text: 'Testing' },
-      },
-    };
-  },
+  result: () => ({
+    data: {
+      note: { name: 'John', text: 'Testing' },
+    },
+  }),
 }];
 
 const renderNote = (props: Partial<NoteProps> = {}) => {
@@ -32,13 +30,17 @@ const renderNote = (props: Partial<NoteProps> = {}) => {
   return (<Note {...defaultProps} {...props} />);
 };
 
-test('queries a note', async () => {
+test('query note', async () => {
   const component = render(
     <MockedProvider mocks={mocks} addTypename={false}>
       {renderNote()}
     </MockedProvider>,
   );
 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  component.debug();
+  await waitFor(() => {
+    const noteName = component.getByTestId('note-name');
+    const noteText = component.getByTestId('note-text');
+    expect(noteName.textContent).toEqual('John');
+    expect(noteText.textContent).toEqual('Testing');
+  });
 });
