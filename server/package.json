@@ -7,7 +7,9 @@
     "watch": "tsc -w",
     "dev": "nodemon dist/index.js",
     "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate ./src/migrations/migration -d ./src/dataSource.ts -p",
-    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d ./src/dataSource.ts"
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d ./src/dataSource.ts",
+    "test:setup": "ts-node ./src/tests/testUtils/setup.ts",
+    "test": "pnpm test:setup && jest"
   },
   "keywords": [],
   "author": "",
