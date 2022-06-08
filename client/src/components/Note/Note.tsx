@@ -4,19 +4,38 @@ import {
   Fade, IconButton, Slide, Text, useDisclosure,
 } from '@chakra-ui/react';
 
-import { useNoteQuery } from '../../generated/graphql';
+import { gql, useQuery } from '@apollo/client';
+// import { useNoteQuery } from '../../generated/graphql';
 import NoteWrapper from './NoteWrapper';
+
+export const GET_NOTE_QUERY = gql`
+query Note($noteId: Int!) {
+  note(id: $noteId) {
+    name
+    text
+  }
+}
+`;
 
 export interface NoteProps {
   setIsWriting: Dispatch<SetStateAction<boolean>>
   limit: number
+  // eslint-disable-next-line react/require-default-props
+  id?: number
 }
 
 const Note: React.FC<NoteProps> = ({
   setIsWriting,
+  // eslint-disable-next-line no-unused-vars
   limit,
+  id,
 }) => {
-  const { data } = useNoteQuery({ variables: { noteId: Math.floor(Math.random() * limit) } });
+  // const { data } = useNoteQuery({ variables: { noteId: Math.floor(Math.random() * limit) } });
+
+  const { loading, error, data } = useQuery(
+    GET_NOTE_QUERY,
+    { variables: { id } },
+  );
 
   const { isOpen: isBtnOpen, onToggle: onBtnToggle } = useDisclosure();
   const { isOpen: isFormOpen, onToggle: onFormToggle } = useDisclosure();
@@ -34,6 +53,12 @@ const Note: React.FC<NoteProps> = ({
   useEffect(() => {
     toggleAnimations();
   }, []);
+
+  useEffect(() => {
+    console.log('data: ', data);
+    console.log('error: ', error);
+    console.log('loading: ', loading);
+  }, [data]);
 
   return (
     <>
@@ -65,7 +90,7 @@ const Note: React.FC<NoteProps> = ({
             {data?.note?.text}
           </Text>
           <Text color="gray.600" textAlign="right">From,</Text>
-          <Text color="gray.600" textAlign="right">{data?.note?.name}</Text>
+          <Text data-testid="p" color="gray.600" textAlign="right">{data?.note?.name}</Text>
         </NoteWrapper>
       </Slide>
       <Fade in={isBtnOpen}>
