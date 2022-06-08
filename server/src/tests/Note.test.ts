@@ -22,14 +22,24 @@ mutation CreateNote($input: NoteInput!) {
 
 describe('Note', () => {
   it('create note', async () => {
-    console.log(await gqlCall({
+    const userInput = {
+      name: 'John',
+      text: 'Hello World',
+    };
+
+    const res = await gqlCall({
       source: createNote,
       variableValues: {
-        input: {
-          name: 'John',
-          text: 'Hello World',
+        input: userInput,
+      },
+    });
+
+    expect(res).toMatchObject({
+      data: {
+        createNote: {
+          id: 1,
         },
       },
-    }));
+    });
   });
 });
