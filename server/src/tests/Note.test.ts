@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+import Note from '../entities/Note';
 import gqlCall from './testUtils/gqlCall';
 import { testSource } from './testUtils/testSource';
 
@@ -20,17 +21,32 @@ mutation CreateNote($input: NoteInput!) {
 }
 `;
 
+const fetchNote = `
+query($id: Int!) {
+  note(id: $id) {
+    name
+  }
+}
+`;
+
+const updateNote = `
+  mutation($id: Int!, $text: String) {
+  updateNote(id: $id, text: $text)
+}
+`;
+
+const testId = 1;
+const testInput = {
+  name: 'John',
+  text: 'Hello World',
+};
+
 describe('Note', () => {
   it('create note', async () => {
-    const userInput = {
-      name: 'John',
-      text: 'Hello World',
-    };
-
     const res = await gqlCall({
       source: createNote,
       variableValues: {
-        input: userInput,
+        input: testInput,
       },
     });
 
@@ -41,5 +57,33 @@ describe('Note', () => {
         },
       },
     });
+
+    const note = await Note.findOne({ where: { id: testId } });
+    expect(note).toBeDefined();
+  });
+
+  it('fetch note', async () => {
+    const res = await gqlCall({
+      source: fetchNote,
+      variableValues: {
+        id: testId,
+      },
+    });
+
+    const resName = res.data?.note?.name;
+    expect(resName).toEqual('John');
+  });
+
+  it('update note', async () => {
+    await gqlCall({
+      source: updateNote,
+      variableValues: {
+        id: testId,
+        text: 'Heyyo',
+      },
+    });
+
+    const note = await Note.findOne({ where: { id: testId } });
+    expect(note?.text).toEqual('Heyyo');
   });
 });
