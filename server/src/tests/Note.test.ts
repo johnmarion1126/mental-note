@@ -3,16 +3,6 @@ import Note from '../entities/Note';
 import gqlCall from './testUtils/gqlCall';
 import { testSource } from './testUtils/testSource';
 
-let conn: DataSource;
-
-beforeAll(async () => {
-  conn = await testSource();
-});
-
-afterAll(async () => {
-  await conn.destroy();
-});
-
 const createNote = `
 mutation CreateNote($input: NoteInput!) {
   createNote(input: $input) {
@@ -35,11 +25,27 @@ const updateNote = `
 }
 `;
 
+const deleteNote = `
+mutation($id: Float!) {
+  deleteNote(id: $id)
+}
+`;
+
 const testId = 1;
 const testInput = {
   name: 'John',
   text: 'Hello World',
 };
+
+let conn: DataSource;
+
+beforeAll(async () => {
+  conn = await testSource();
+});
+
+afterAll(async () => {
+  await conn.destroy();
+});
 
 describe('Note', () => {
   it('create note', async () => {
@@ -85,5 +91,17 @@ describe('Note', () => {
 
     const note = await Note.findOne({ where: { id: testId } });
     expect(note?.text).toEqual('Heyyo');
+  });
+
+  it('delete note', async () => {
+    const res = await gqlCall({
+      source: deleteNote,
+      variableValues: {
+        id: testId,
+      },
+    });
+
+    const resState = res.data?.deleteNote;
+    expect(resState).toBeTruthy();
   });
 });
