@@ -1,6 +1,0 @@
-query Note($noteId: Int!) {
-  note(id: $noteId) {
-    name
-    text
-  }
-}
