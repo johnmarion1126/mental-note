@@ -5,7 +5,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 
 import dataSource from './dataSource';
-import { PORT } from './utils/constants';
+import { PORT, URL } from './utils/constants';
 import HelloResolver from './resolvers/hello';
 import NoteResolver from './resolvers/note';
 
@@ -13,9 +13,13 @@ const main = async () => {
   await dataSource.initialize();
   const app = express();
 
+  console.log(URL);
+
   app.use(
     cors({
-      origin: ['http://localhost:3000', 'https://studio.apollographql.com'],
+      origin: [
+        URL as string,
+        'https://studio.apollographql.com'],
       credentials: true,
     }),
   );
