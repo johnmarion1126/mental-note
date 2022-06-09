@@ -11,6 +11,7 @@ import NoteResolver from './resolvers/note';
 
 const main = async () => {
   await dataSource.initialize();
+  await dataSource.runMigrations();
   const app = express();
 
   console.log(URL);

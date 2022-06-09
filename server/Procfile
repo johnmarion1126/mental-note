@@ -1,2 +1,1 @@
-web: pnpm start
-release: pnpm migration:run
+web: ts-node src/index.ts 
