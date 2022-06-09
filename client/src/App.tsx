@@ -13,7 +13,7 @@ import NoteForm from './components/Note/NoteForm';
 import Note from './components/Note/Note';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql',
+  uri: import.meta.env.VITE_URI,
   cache: new InMemoryCache(),
 });
 

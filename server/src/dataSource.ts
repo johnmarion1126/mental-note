@@ -15,6 +15,9 @@ const dataSource = new DataSource({
   database: DB_DATABASE,
   entities: [Note],
   migrations: ['src/migrations/*.ts'],
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 export default dataSource;
